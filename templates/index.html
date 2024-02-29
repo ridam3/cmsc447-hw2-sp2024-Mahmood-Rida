@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+</head>
+<body>
+{% include 'base.html' %}
+<h2>🌸 CRUD Application 🌸</h2>
+
+<form action="/insert" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="id">ID:</label><br>
+    <input type="text" id="id" name="id"><br>
+    <label for="points">Points:</label><br>
+    <input type="text" id="points" name="points"><br>
+    <input type="submit" value="Insert User">
+</form>
+
+<form action="/search" method="get">
+    <input type="text" name="search" placeholder="Search by name...">
+    <input type="submit" value="Search">
+</form>
+
+<div style="width: 100%; text-align: center;">
+    <table style="margin: 0 auto; width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 8px; overflow: hidden;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Points</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.id }}</td>
+                <td>{{ user.points }}</td>
+                <td style="text-align: center;">                    
+                   <form action="/delete" method="POST" style="display: inline; margin: 0; padding: 0;">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <button type="submit" style="background-color: #775497; color: white; cursor: pointer; border: none; padding: 8px 15px;">Delete</button>
+                    </form>
+                    <button onclick="showUpdateForm('{{ user.id }}')" style="border: none; background-color: #775497;">Update</button>
+                    <div id="update-form-{{ user.id }}" style="display: none;">
+                        <form action="/update" method="POST">
+                            <input type="hidden" name="original_id" value="{{ user.id }}">
+                            <!-- Removed the New ID input field -->
+                            <label for="name">New Name:</label>
+                            <input type="text" name="name" id="name" value="{{ user.name }}">
+                            <label for="points">New Points:</label>
+                            <input type="number" name="points" id="points" value="{{ user.points }}" class="uniform-input">
+                            <button type="submit" style="border: none; background-color: #775497;">✔</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function showUpdateForm(userId) {
+        var formId = "update-form-" + userId;
+        var form = document.getElementById(formId);
+        form.style.display = "block";
+    }
+</script>    
+</div>
+{% include "footer.html" %}
+</body>
+</html>
