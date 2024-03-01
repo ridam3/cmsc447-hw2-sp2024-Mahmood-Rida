@@ -17,10 +17,9 @@ This project demonstrates a basic CRUD (Create, Read, Update, Delete) applicatio
 
 # How to Install Project
 1. In order to install you would have to first clone the repository:
-    'git clone [URL of your git repository] 
-` 
+    'git clone [URL of your git repository]'
 2. Navigate to the projects directiory:
-    cd [your project directory]
+    'cd [your project directory]'
 
 # Running the App
 Run the following commands:
